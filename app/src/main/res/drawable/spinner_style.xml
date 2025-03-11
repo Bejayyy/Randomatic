@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Color -->
+    <solid android:color="#E5E5E5" /> <!-- Light gray color -->
+
+    <!-- Border Color -->
+    <stroke android:color="#E5E5E5" android:width="2dp" /> <!-- Border color and width -->
+
+    <!-- Padding inside the EditText -->
+    <padding android:top="15dp" android:bottom="15dp"/>
+</shape>

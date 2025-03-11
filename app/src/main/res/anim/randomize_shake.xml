@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Shake Animation: Random Horizontal Movement -->
+    <translate
+        android:fromXDelta="0%"
+        android:toXDelta="10%"
+    android:duration="100"
+    android:repeatCount="infinite"
+    android:repeatMode="reverse" />
+
+    <!-- Vertical movement to simulate shuffling -->
+    <translate
+        android:fromYDelta="0%"
+        android:toYDelta="50%"
+    android:duration="300"
+    android:repeatCount="infinite"
+    android:repeatMode="reverse" />
+
+    <!-- Fade-in and Fade-out for added excitement (blurring effect) -->
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.5"
+        android:duration="300"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse" />
+</set>

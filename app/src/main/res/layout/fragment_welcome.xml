@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WelcomeFragment"
+    >
+
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backgroundimage" />
+
+    <!-- Content Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:elevation="4dp"
+        android:background="@android:color/transparent">
+
+        <!-- Container for Welcome Text, Description, and Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner_bg"
+            android:orientation="vertical"
+            android:paddingTop="60dp"
+            android:paddingBottom="80dp"
+            android:paddingHorizontal="30dp">
+
+            <!-- Welcome Text -->
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:gravity="start"
+                android:text="Welcome"
+                android:textColor="#5695C4"
+                android:textSize="48sp"
+                android:textStyle="bold" />
+
+            <!-- Description Text -->
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:gravity="start"
+                android:text="Bringing people together effortlessly, managing groups with precision, and ensuring fairness and inclusivity in every activity, your ultimate tool for seamless collaboration."
+                android:textColor="@android:color/darker_gray"
+                android:textSize="20sp"
+                android:textStyle="normal" />
+
+            <!-- Buttons and "or" Text -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Sign In Button -->
+                <Button
+                    android:id="@+id/welcomeSignIpbutton"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#5695C4"
+                    android:text="Sign In"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <!-- "or" Text -->
+                <TextView
+                    android:id="@+id/orTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:text="or"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
+
+
+                <!-- Sign Up Button -->
+                <Button
+                    android:id="@+id/welcomeSignUpbutton"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#EEEEEE"
+                    android:text="Sign Up"
+                    android:textColor="#5695C4"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

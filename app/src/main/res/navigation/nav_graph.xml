@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.randomatic.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.randomatic.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.randomatic.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homePage"
+        android:name="com.example.randomatic.HomePage"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page">
+        <action
+            android:id="@+id/action_homePage_to_soloSpin"
+            app:destination="@id/soloSpin" />
+        <action
+            android:id="@+id/action_homePage_to_squadShuffle"
+            app:destination="@id/squadShuffle" />
+        <action
+            android:id="@+id/action_homePage_to_listManager"
+            app:destination="@id/listManager" />
+         <action
+            android:id="@+id/action_homePage_to_historyLog"
+            app:destination="@id/historyLog" />
+    </fragment>
+    <fragment
+        android:id="@+id/soloSpin"
+        android:name="com.example.randomatic.SoloSpin"
+        android:label="fragment_solo_spin"
+        tools:layout="@layout/fragment_solo_spin">
+        <action
+            android:id="@+id/action_soloSpin_to_homePage"
+            app:destination="@id/homePage" />
+    </fragment>
+    <fragment
+        android:id="@+id/squadShuffle"
+        android:name="com.example.randomatic.SquadShuffle"
+        android:label="fragment_squad_shuffle"
+        tools:layout="@layout/fragment_squad_shuffle">
+        <action
+            android:id="@+id/action_squadShuffle_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_squadShuffle_to_groupDisplayFragment"
+            app:destination="@id/groupDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/groupDisplayFragment"
+        android:name="com.example.randomatic.GroupDisplayFragment"
+        android:label="fragment_group_display"
+        tools:layout="@layout/fragment_group_display">
+
+        <!-- Serialize or Parcelize your data -->
+        <argument
+            android:name="groups"
+            app:argType="java.io.Serializable" />  <!-- Use Serializable for complex types -->
+    </fragment>
+    <fragment
+        android:id="@+id/listManager"
+        android:name="com.example.randomatic.ListManager"
+        android:label="fragment_list_manager"
+        tools:layout="@layout/fragment_list_manager" >
+        <action
+            android:id="@+id/action_listManager_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_listManager_to_studentListFragment"
+            app:destination="@id/studentListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentListFragment"
+        android:name="com.example.randomatic.StudentListFragment"
+        android:label="fragment_student_list"
+        tools:layout="@layout/fragment_student_list" >
+        <action
+            android:id="@+id/action_studentListFragment_to_listManager"
+            app:destination="@id/listManager" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyLog"
+        android:name="com.example.randomatic.HistoryLog"
+        android:label="fragment_history_log"
+        tools:layout="@layout/fragment_history_log" >
+        <action
+            android:id="@+id/action_historyLog_to_soloSpinHistoryList"
+            app:destination="@id/soloSpinHistoryList" />
+    </fragment>
+    <fragment
+        android:id="@+id/soloSpinHistoryList"
+        android:name="com.example.randomatic.SoloSpinHistoryList"
+        android:label="fragment_solo_spin_history_list"
+        tools:layout="@layout/fragment_solo_spin_history_list" />
+
+
+</navigation>

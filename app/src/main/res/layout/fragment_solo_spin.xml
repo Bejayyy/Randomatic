@@ -1,0 +1,211 @@
+<!-- Root layout: A vertical LinearLayout that holds all UI components -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".SoloSpin"
+>
+
+    <!-- Original Header section containing back arrow, logo, and settings icon - UNCHANGED -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/baseline_keyboard_backspace_24" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:src="@drawable/logo3"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/settings_icon" />
+    </LinearLayout>
+
+
+    <!-- Title section -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create New Spin"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/firstcardBackgroundColor"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Input field for entering the title of the spin -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spin Title"
+        android:textSize="14sp"
+        android:textColor="@color/textSecondaryLight"
+        android:layout_marginBottom="4dp"/>
+
+    <EditText
+        android:id="@+id/spinTitleInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textPrimaryDark"
+        android:hint="Enter a title for your spin"
+        android:textSize="16sp"
+        android:background="@drawable/edit_text_bg"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Custom dropdown layout for selecting a section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Class Section"
+        android:textSize="14sp"
+        android:textColor="@color/textSecondaryLight"
+        android:layout_marginBottom="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/spinnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_bg"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="10dp"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <!-- Text displaying selected section -->
+        <TextView
+            android:id="@+id/spinnerText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Choose from Class List"
+            android:textSize="16sp"
+            android:textColor="@color/textPrimaryDark"/>
+
+        <!-- Dropdown icon for selecting a section -->
+        <ImageView
+            android:id="@+id/spinnerIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_dropdown_arrow"
+
+            android:padding="4dp"/>
+    </LinearLayout>
+
+    <!-- Hidden Spinner that is programmatically controlled -->
+    <Spinner
+        android:id="@+id/sectionSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:popupBackground="@color/white"
+        android:visibility="gone"/>
+
+    <!-- Names section -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Participants"
+        android:textSize="14sp"
+        android:textColor="@color/textSecondaryLight"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Input field for adding names to the list -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="8dp">
+
+        <EditText
+            android:id="@+id/editTextName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/textPrimaryDark"
+            android:hint="Enter participant name"
+            android:textSize="16sp"
+            android:background="@drawable/edit_text_bg"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="10dp"/>
+
+        <ImageButton
+            android:id="@+id/addNameButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_add"
+            android:background="@drawable/circle_button_bg"
+            android:backgroundTint="@color/firstcardBackgroundColor"/>
+    </LinearLayout>
+
+    <!-- Participant counter with header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#24A7A1"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Names"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+
+
+    </LinearLayout>
+
+    <!-- ListView for displaying added names with styled container -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        android:layout_marginBottom="16dp">
+
+        <ListView
+            android:id="@+id/listViewNames"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#E0E0E0"
+            android:dividerHeight="1dp"
+            android:background="#FFFFFF"
+            android:padding="8dp"
+            android:scrollbars="vertical"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Button to start the random spin -->
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="START SPIN"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/firstcardBackgroundColor"
+        android:textColor="@android:color/white"
+        android:padding="12dp"
+        android:elevation="4dp"
+        app:cornerRadius="8dp"/>
+
+</LinearLayout>

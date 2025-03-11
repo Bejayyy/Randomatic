@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="blue">#5695C4</color>
+    <color name="gray">#282828</color>
+    <color name="orange">#FFA500</color>
+    <color name="green">#34A853</color>
+    <color name="colorGroup1">#FFCDD2</color>  <!-- Light red -->
+    <color name="colorGroup2">#FFEB3B</color>  <!-- Yellow -->
+    <color name="colorGroup3">#4CAF50</color>  <!-- Green -->
+    <color name="colorGroup4">#2196F3</color>  <!-- Blue -->
+    <color name="colorGroup5">#9C27B0</color>  <!-- Purple -->
+    <color name="colorGroup6">#FF9800</color>  <!-- Orange -->
+    <color name="firstcardBackgroundColor">#24A7A1</color>
+    <color name="secondcardBackgroundColor"> #AAC9BC</color>
+    <color name="textPrimaryDark">#263238</color>
+    <color name="textSecondaryLight">#78909C</color>
+    <color name="cardBackground">#FFFFFF</color>
+
+</resources>
