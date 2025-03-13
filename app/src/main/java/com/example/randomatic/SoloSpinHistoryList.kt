@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -33,6 +34,13 @@ class SoloSpinHistoryList : Fragment() {
             fetchSelectedNames(title) // Fetch names when a title is clicked
         }
         recyclerView.adapter = adapter
+
+        // Find the back arrow and set click listener
+        val backArrow: ImageView = view.findViewById(R.id.back_arrow)
+        backArrow.setOnClickListener {
+            parentFragmentManager.popBackStack() // Navigates back to the previous fragment
+        }
+
 
         fetchSoloSpinHistory()
 

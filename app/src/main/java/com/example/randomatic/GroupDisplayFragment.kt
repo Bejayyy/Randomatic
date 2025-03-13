@@ -5,14 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.randomatic.databinding.FragmentGroupDisplayBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 
 class GroupDisplayFragment : Fragment() {
 
@@ -21,25 +28,23 @@ class GroupDisplayFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentGroupDisplayBinding.inflate(inflater, container, false)
 
-        // Retrieve the groups argument from NavArgs as Serializable
         val groups = arguments?.getSerializable("groups") as? List<List<String>>
 
         groups?.let {
-            // Set the "Grouped in teams of" text dynamically if needed
             binding.textViewTeamCount.text = it.size.toString()
+            binding.backArrow.setOnClickListener {
+                showExitConfirmationDialog(groups)
+            }
 
-            // Clear the previous rows in GridLayout
             binding.gridLayoutGroups.removeAllViews()
 
-            // Add each group to the GridLayout
             it.forEachIndexed { index, group ->
-                // Create a MaterialCardView to hold the group
                 val groupCard = MaterialCardView(requireContext()).apply {
-                    radius = resources.getDimension(R.dimen.card_corner_radius) // You'll need to define this in dimens.xml (8dp recommended)
-                    cardElevation = resources.getDimension(R.dimen.card_elevation) // You'll need to define this in dimens.xml (2dp recommended)
+                    radius = 8f
+                    cardElevation = 2f
                     setCardBackgroundColor(Color.WHITE)
                     layoutParams = GridLayout.LayoutParams().apply {
                         width = 0
@@ -47,117 +52,133 @@ class GroupDisplayFragment : Fragment() {
                         columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
                         setMargins(16, 16, 16, 16)
                     }
-                    // Add stroke to card
                     strokeWidth = 1
-                    strokeColor = ContextCompat.getColor(context, R.color.colorGroup6) // orange stroke
+                    strokeColor = ContextCompat.getColor(context, R.color.colorGroup6)
                 }
 
-                // Create a LinearLayout to organize the content
                 val groupLayout = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
                 }
 
-                // Create a TextView for the group header
                 val groupTitle = TextView(requireContext()).apply {
                     text = "Group ${index + 1}"
                     textSize = 18f
                     setTextColor(Color.WHITE)
                     setPadding(16, 12, 16, 12)
                     setBackgroundColor(getGroupColor(index))
-                    gravity = View.TEXT_ALIGNMENT_CENTER
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                    // Add elevation to title for depth effect
-                    elevation = resources.getDimension(R.dimen.text_elevation) // You'll need to define this in dimens.xml (1dp recommended)
                 }
-
-                // Add group title to the layout
                 groupLayout.addView(groupTitle)
 
-                // Create container for members with some padding
                 val membersContainer = LinearLayout(requireContext()).apply {
                     orientation = LinearLayout.VERTICAL
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
                     setPadding(8, 8, 8, 8)
                 }
 
-                // Add each group member to the container with improved styling
-                group.forEachIndexed { memberIndex, member ->
-                    val memberCard = CardView(requireContext()).apply {
-                        radius = resources.getDimension(R.dimen.member_card_radius) // You'll need to define this in dimens.xml (4dp recommended)
-                        cardElevation = resources.getDimension(R.dimen.member_card_elevation) // You'll need to define this in dimens.xml (1dp recommended)
-                        layoutParams = LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                        ).apply {
-                            setMargins(8, if (memberIndex == 0) 0 else 8, 8, 8)
-                        }
-                    }
-
-                    val memberView = TextView(requireContext()).apply {
+                group.forEach { member ->
+                    val memberTextView = TextView(requireContext()).apply {
                         text = member
                         textSize = 16f
                         setTextColor(Color.BLACK)
                         setPadding(16, 12, 16, 12)
-                        background = if (memberIndex % 2 == 0) {
-                            // Even rows get a light background
-                            ContextCompat.getDrawable(requireContext(), R.drawable.member_even_bg)
-                        } else {
-                            // Odd rows get a slightly different background
-                            ContextCompat.getDrawable(requireContext(), R.drawable.member_odd_bg)
-                        }
-                        layoutParams = LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                        )
                     }
-
-                    memberCard.addView(memberView)
-                    membersContainer.addView(memberCard)
+                    membersContainer.addView(memberTextView)
                 }
 
-                // Add the members container to the group layout
                 groupLayout.addView(membersContainer)
-
-                // Add the group layout to the card
                 groupCard.addView(groupLayout)
-
-                // Add the card to the GridLayout
                 binding.gridLayoutGroups.addView(groupCard)
             }
         } ?: run {
             binding.textViewGroups.text = "No groups to display."
         }
 
+        binding.btnSave.setOnClickListener {
+            showSavePopup(groups)
+        }
+
         return binding.root
     }
 
-    // Function to get different colors for the groups
     private fun getGroupColor(index: Int): Int {
         val colors = listOf(
-            R.color.colorGroup1,
-            R.color.colorGroup2,
-            R.color.colorGroup3,
-            R.color.colorGroup4,
-            R.color.colorGroup5,
-            R.color.colorGroup6  // Orange color you specified
+            R.color.colorGroup1, R.color.colorGroup2, R.color.colorGroup3,
+            R.color.colorGroup4, R.color.colorGroup5, R.color.colorGroup6
         )
+        return ContextCompat.getColor(requireContext(), colors[index % colors.size])
+    }
 
-        // Using the firstcardBackgroundColor (#24A7A1) as a potential primary accent
-        // for special cases like the first group or highlighted elements
-        if (index == 0) {
-            return resources.getColor(R.color.firstcardBackgroundColor, null)
+    private fun showSavePopup(groups: List<List<String>>?) {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.popup_save_spin, null)
+        val input = view.findViewById<EditText>(R.id.etSpinTitle)
+        val btnSave = view.findViewById<TextView>(R.id.btnSave)
+        val btnCancel = view.findViewById<TextView>(R.id.btnCancel)
+
+        btnSave.setOnClickListener {
+            val title = input.text.toString().trim()
+            if (title.isNotEmpty() && groups != null) {
+                saveToFirestore(title, groups)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(requireContext(), "Title cannot be empty!", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        return resources.getColor(colors[index % colors.size], null)
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setContentView(view)
+        dialog.show()
     }
+
+    private fun saveToFirestore(title: String, groups: List<List<String>>) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            Toast.makeText(requireContext(), "User not logged in!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val db = FirebaseFirestore.getInstance()
+        val userId = user.uid
+        val groupsMap = HashMap<String, List<String>>().apply {
+            groups.forEachIndexed { index, group -> put("Group ${index + 1}", group) }
+        }
+
+        val spinData = hashMapOf(
+            "category" to "Squad Shuffle",
+            "title" to title,
+            "groups" to groupsMap,
+            "timestamp" to FieldValue.serverTimestamp()
+        )
+
+        db.collection("users").document(userId)
+            .collection("spinHistory").add(spinData)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Spin saved successfully!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+    private fun showExitConfirmationDialog(groups: List<List<String>>?) {
+        val dialog = BottomSheetDialog(requireContext())
+        val view = layoutInflater.inflate(R.layout.popup_exit_confirmation, null)
+        val btnYes = view.findViewById<TextView>(R.id.btnYes)
+        val btnNo = view.findViewById<TextView>(R.id.btnNo)
+
+        btnYes.setOnClickListener {
+            dialog.dismiss()
+            showSavePopup(groups) // Show save dialog if the user selects "Yes"
+        }
+
+        btnNo.setOnClickListener {
+            dialog.dismiss()
+            requireView().findNavController().navigate(R.id.action_groupDisplayFragment_to_squadShuffle)
+        }
+
+        dialog.setContentView(view)
+        dialog.show()
+    }
+
 }

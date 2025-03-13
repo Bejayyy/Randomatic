@@ -21,6 +21,14 @@ class HistoryLog : Fragment() {
         binding.soloSpinContainer.setOnClickListener{
             it.findNavController().navigate(R.id.action_historyLog_to_soloSpinHistoryList)
         }
+        binding.backArrow.setOnClickListener {
+            it.findNavController().navigate(R.id.action_historyLog_to_homePage)
+        }
+
+        binding.squadShuffleContainer.setOnClickListener {
+            it.findNavController().navigate(R.id.action_historyLog_to_squadShuffleList)
+        }
+
         return binding.root
     }
 

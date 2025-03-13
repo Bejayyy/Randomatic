@@ -26,9 +26,9 @@ class LoginFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
-    //        if (auth.currentUser != null) {
-    //            auth.signOut() // Force logout
-    //        }
+        //        if (auth.currentUser != null) {
+        //            auth.signOut() // Force logout
+        //        }
 
 
         binding.signInButton.setOnClickListener {
@@ -44,9 +44,15 @@ class LoginFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            // Set loading state before authentication
+            setLoadingState(true)
+
             signIn(email, password)
         }
 
+        binding.forgotPassword.setOnClickListener {
+            it.findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
+        }
         binding.signUpLink.setOnClickListener{
             it.findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
@@ -56,6 +62,9 @@ class LoginFragment : Fragment() {
     private fun signIn(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
+                // Reset loading state after authentication completes
+                setLoadingState(false)
+
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     fetchUserData(user?.uid)
@@ -86,6 +95,32 @@ class LoginFragment : Fragment() {
             }
     }
 
+    /**
+     * Sets the loading state for the sign-in button
+     * @param isLoading Whether the authentication is in progress
+     */
+    private fun setLoadingState(isLoading: Boolean) {
+        if (isLoading) {
+            // Disable button and change text to show loading
+            binding.signInButton.isEnabled = false
+            binding.signInButton.text = "Signing in..."
+
+            // Optionally disable other interactive elements
+            binding.usernameInput.isEnabled = false
+            binding.passwordInput.isEnabled = false
+            binding.signUpLink.isEnabled = false
+        } else {
+            // Re-enable button and restore original text
+            binding.signInButton.isEnabled = true
+            binding.signInButton.text = "Sign In"
+
+            // Re-enable other interactive elements
+            binding.usernameInput.isEnabled = true
+            binding.passwordInput.isEnabled = true
+            binding.signUpLink.isEnabled = true
+        }
+    }
+
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
@@ -96,3 +131,4 @@ class LoginFragment : Fragment() {
 
     data class User(val email: String = "")
 }
+

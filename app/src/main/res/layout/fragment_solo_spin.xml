@@ -132,6 +132,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center"
         android:layout_marginBottom="8dp">
 
         <EditText
@@ -153,17 +154,20 @@
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_add"
             android:background="@drawable/circle_button_bg"
-            android:backgroundTint="@color/firstcardBackgroundColor"/>
+            android:backgroundTint="@color/firstcardBackgroundColor"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
+
     <!-- Participant counter with header -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#24A7A1"
+        android:background="@drawable/rounder_top_corners"
         android:padding="12dp">
 
-        <TextView
+    <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Student Names"
@@ -179,7 +183,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:cardCornerRadius="8dp"
+
         app:cardElevation="2dp"
         android:layout_marginBottom="16dp">
 
@@ -192,6 +196,41 @@
             android:background="#FFFFFF"
             android:padding="8dp"
             android:scrollbars="vertical"/>
+        <LinearLayout
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="32dp"
+            android:background="@color/white"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/empty_image"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_empty_list"
+                android:alpha="0.7"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Students Added"
+                android:textColor="#424242"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add students using the field above or select a class list"
+                android:textColor="#757575"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"/>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- Button to start the random spin -->

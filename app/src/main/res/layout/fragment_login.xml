@@ -30,17 +30,6 @@
         app:layout_constraintTop_toTopOf="@id/headerImage" />
 
     <!-- Back Button (Optional) -->
-    <ImageButton
-        android:id="@+id/backButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/circle_background"
-        android:contentDescription="Go back"
-        android:padding="12dp"
-        android:src="@drawable/ic_arrow_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Sign In Text with App Logo -->
     <LinearLayout
@@ -123,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:hint="example.swu@phinmaed.com"
                     android:inputType="textEmailAddress"
-                    android:textColor="#333333"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter password"
                     android:inputType="textPassword"
-                    android:textColor="#FF9800"
+                    android:textColor="@color/textColor"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

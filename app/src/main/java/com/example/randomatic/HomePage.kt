@@ -43,6 +43,9 @@ class HomePage : Fragment() {
         binding.historyLogContainer.setOnClickListener{
             it.findNavController().navigate(R.id.action_homePage_to_historyLog)
         }
+        binding.backArrow.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homePage_to_settings)
+        }
 
         return binding.root
     }

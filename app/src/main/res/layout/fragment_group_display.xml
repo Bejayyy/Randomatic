@@ -44,7 +44,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="10dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="3dp">
 
@@ -77,6 +77,23 @@
                     android:gravity="center"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="180dp"
+            android:layout_gravity="end"
+            android:layout_height="56dp"
+            android:text="Save Groups"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:fontFamily="@font/lisubusa"
+            app:cornerRadius="28dp"
+            app:backgroundTint="#FF9800"
+            android:elevation="4dp"
+            app:icon="@drawable/baseline_save_24"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            android:layout_marginBottom="10dp"
+           />
 
         <!-- Enhanced Grid Layout with ScrollView for overflow content -->
         <androidx.core.widget.NestedScrollView
@@ -98,20 +115,5 @@
         </androidx.core.widget.NestedScrollView>
 
         <!-- Enhanced Save Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSave"
-            android:layout_width="180dp"
-            android:layout_height="56dp"
-            android:text="Save Groups"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:fontFamily="@font/lisubusa"
-            app:cornerRadius="28dp"
-            app:backgroundTint="#FF9800"
-            android:elevation="4dp"
-            app:icon="@drawable/baseline_save_24"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            android:layout_marginTop="16dp" />
     </LinearLayout>
 </FrameLayout>

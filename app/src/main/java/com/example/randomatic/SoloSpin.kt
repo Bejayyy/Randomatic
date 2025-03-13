@@ -39,6 +39,7 @@ class SoloSpin : Fragment() {
         setupSpinner()
         setupButtons()
         updateStartButtonState()
+        updateNamesListView()
 
         return binding.root
     }
@@ -382,4 +383,18 @@ class SoloSpin : Fragment() {
     private fun showToast(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
+    private fun updateNamesListView() {
+        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, namesList)
+        binding.listViewNames.adapter = adapter
+
+        // Ensure visibility is properly toggled
+        if (namesList.isEmpty()) {
+            binding.emptyView.visibility = View.VISIBLE
+            binding.listViewNames.visibility = View.GONE
+        } else {
+            binding.emptyView.visibility = View.GONE
+            binding.listViewNames.visibility = View.VISIBLE
+        }
+    }
+
 }

@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -55,6 +58,9 @@
          <action
             android:id="@+id/action_homePage_to_historyLog"
             app:destination="@id/historyLog" />
+        <action
+            android:id="@+id/action_homePage_to_settings"
+            app:destination="@id/settings" />
     </fragment>
     <fragment
         android:id="@+id/soloSpin"
@@ -86,7 +92,13 @@
         <!-- Serialize or Parcelize your data -->
         <argument
             android:name="groups"
-            app:argType="java.io.Serializable" />  <!-- Use Serializable for complex types -->
+            app:argType="java.io.Serializable" />
+        <action
+            android:id="@+id/action_groupDisplayFragment_to_squadShuffle"
+            app:destination="@id/squadShuffle" />
+        <action
+            android:id="@+id/action_groupDisplayFragment_to_squadShuffleList"
+            app:destination="@id/squadShuffleList" />  <!-- Use Serializable for complex types -->
     </fragment>
     <fragment
         android:id="@+id/listManager"
@@ -117,12 +129,63 @@
         <action
             android:id="@+id/action_historyLog_to_soloSpinHistoryList"
             app:destination="@id/soloSpinHistoryList" />
+        <action
+            android:id="@+id/action_historyLog_to_squadShuffleList"
+            app:destination="@id/squadShuffleList" />
+        <action
+            android:id="@+id/action_historyLog_to_homePage"
+            app:destination="@id/homePage" />
     </fragment>
     <fragment
         android:id="@+id/soloSpinHistoryList"
         android:name="com.example.randomatic.SoloSpinHistoryList"
         android:label="fragment_solo_spin_history_list"
-        tools:layout="@layout/fragment_solo_spin_history_list" />
+        tools:layout="@layout/fragment_solo_spin_history_list" >
+        <action
+            android:id="@+id/action_soloSpinHistoryList_to_historyLog"
+            app:destination="@id/historyLog" />
+    </fragment>
+    <fragment
+        android:id="@+id/squadShuffleList"
+        android:name="com.example.randomatic.SquadShuffleList"
+        android:label="fragment_squad_shuffle_list"
+        tools:layout="@layout/fragment_squad_shuffle_list" >
+        <action
+            android:id="@+id/action_squadShuffleList_to_squadShuffle"
+            app:destination="@id/squadShuffle" />
+        <action
+            android:id="@+id/action_squadShuffleList_to_groupDisplayFragment"
+            app:destination="@id/groupDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.randomatic.Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settings_to_homePage"
+            app:destination="@id/homePage" />
+        <action
+            android:id="@+id/action_settings_to_changePassword"
+            app:destination="@id/changePassword" />
+        <action
+            android:id="@+id/action_settings_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.example.randomatic.ChangePassword"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.randomatic.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 
 </navigation>
